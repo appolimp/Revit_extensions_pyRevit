@@ -1,0 +1,441 @@
+{
+  "Uuid": "55a2ecaa-b10c-4ccc-9409-fa684dbe34d1",
+  "IsCustomNode": false,
+  "Description": null,
+  "Name": "dim_axles",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [
+    {
+      "Id": "31efec624c534315ab3265c622ceea8e",
+      "Name": "Create dimension",
+      "Type": "boolean",
+      "Value": "true",
+      "Description": "Выбор между значениями true и false."
+    },
+    {
+      "Id": "c822d0e90b894b6e820093e3cc2c4923",
+      "Name": "Create all dimension",
+      "Type": "boolean",
+      "Value": "true",
+      "Description": "Выбор между значениями true и false."
+    },
+    {
+      "Id": "362c53b5d87547ff88d1266a4a49471f",
+      "Name": "Crop axles",
+      "Type": "boolean",
+      "Value": "true",
+      "Description": "Выбор между значениями true и false."
+    },
+    {
+      "Id": "fd4f20c5b5fa427eb5dd31cb004d8640",
+      "Name": "Update bubbles",
+      "Type": "boolean",
+      "Value": "true",
+      "Description": "Выбор между значениями true и false."
+    }
+  ],
+  "Outputs": [
+    {
+      "Id": "33456303c34b47f2893ffda8e639feee",
+      "Name": "Log",
+      "Type": "unknown",
+      "InitialValue": "",
+      "Description": "Визуализация входного элемента узла."
+    }
+  ],
+  "Nodes": [
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "PyScript.Script.Execute@var[]",
+      "Id": "38e041d4b5834bb9b450d5b75c200871",
+      "Inputs": [
+        {
+          "Id": "463fffa3caa04a988f9707579ea91ac6",
+          "Name": "IN",
+          "Description": "A list of inputs.\n\nvar[]\nЗначение по умолчанию : DesignScript.Builtin.Dictionary.ByKeysValues([], [])",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "d773487d9bb24a0db926af7e3b886929",
+          "Name": "output",
+          "Description": "The script output.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "e9ec3b6168ea4c59824ac09a0a41235c",
+          "Name": "OUT",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Running a python script with the same name as the workspace.\n\nScript.Execute (IN: var[] = DesignScript.Builtin.Dictionary.ByKeysValues([], [])): var[]..[]"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "33456303c34b47f2893ffda8e639feee",
+      "Inputs": [
+        {
+          "Id": "b017ea7d86b64f498383a395db73761c",
+          "Name": "",
+          "Description": "Узел для оценки.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "8abf8d23d61744c99b6a639b40ee3774",
+          "Name": "",
+          "Description": "Просмотр содержимого.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Визуализация входного элемента узла."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.CreateList, CoreNodeModels",
+      "VariableInputPorts": true,
+      "NodeType": "ExtensionNode",
+      "Id": "dc8bacb26c754c148289dece1d9d49c3",
+      "Inputs": [
+        {
+          "Id": "faef58f89e9547b5b88cc4a72a674936",
+          "Name": "item0",
+          "Description": "Индекс элемента #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "646e7968a26646f0b6d50e4386ea31c3",
+          "Name": "item1",
+          "Description": "Индекс элемента #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "1b780361615743e887e8b9be53026bab",
+          "Name": "item2",
+          "Description": "Индекс элемента #2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "8de1bb15223f4627af9b4132db9a9007",
+          "Name": "item3",
+          "Description": "Индекс элемента #3",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "8a4d4ae16aa046c2a71020ad80ac2c1d",
+          "Name": "list",
+          "Description": "Список",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Создание нового списка из заданных входных значений"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "80c6df4367474546a4be46cf073a10d9",
+      "Inputs": [
+        {
+          "Id": "9881ec4a08c046ebbf493749b7aa5b36",
+          "Name": "",
+          "Description": "Узел для оценки.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "3a7712c84f68430d93f6dc94f097b144",
+          "Name": "",
+          "Description": "Просмотр содержимого.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Визуализация входного элемента узла."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "NodeType": "BooleanInputNode",
+      "InputValue": true,
+      "Id": "31efec624c534315ab3265c622ceea8e",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "d23c3e11b34842aeb53047168ec9f7f6",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Выбор между значениями true и false."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "NodeType": "BooleanInputNode",
+      "InputValue": true,
+      "Id": "c822d0e90b894b6e820093e3cc2c4923",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "e38831b49b624f0b8f84a9ec5855cd88",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Выбор между значениями true и false."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "NodeType": "BooleanInputNode",
+      "InputValue": true,
+      "Id": "362c53b5d87547ff88d1266a4a49471f",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "8d994b63ec2c4958a37c4aac19354555",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Выбор между значениями true и false."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "NodeType": "BooleanInputNode",
+      "InputValue": true,
+      "Id": "fd4f20c5b5fa427eb5dd31cb004d8640",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "e03628ac824944e7a52857e94ed9092d",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Выбор между значениями true и false."
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "d773487d9bb24a0db926af7e3b886929",
+      "End": "b017ea7d86b64f498383a395db73761c",
+      "Id": "1b730b7b16d841d38a4a3abd72de6422"
+    },
+    {
+      "Start": "e9ec3b6168ea4c59824ac09a0a41235c",
+      "End": "9881ec4a08c046ebbf493749b7aa5b36",
+      "Id": "60de89d34e3f4cea8ba37ceeb995cb2e"
+    },
+    {
+      "Start": "8a4d4ae16aa046c2a71020ad80ac2c1d",
+      "End": "463fffa3caa04a988f9707579ea91ac6",
+      "Id": "18f63b7d7e864d6d8a12403173b50fc1"
+    },
+    {
+      "Start": "d23c3e11b34842aeb53047168ec9f7f6",
+      "End": "faef58f89e9547b5b88cc4a72a674936",
+      "Id": "6d095dd419604ed18bde1075679b7ada"
+    },
+    {
+      "Start": "e38831b49b624f0b8f84a9ec5855cd88",
+      "End": "646e7968a26646f0b6d50e4386ea31c3",
+      "Id": "42c049bc9ac9428195b3c9e4e89c9e8b"
+    },
+    {
+      "Start": "8d994b63ec2c4958a37c4aac19354555",
+      "End": "1b780361615743e887e8b9be53026bab",
+      "Id": "08f69cf15c3845bf863483562dee1a4d"
+    },
+    {
+      "Start": "e03628ac824944e7a52857e94ed9092d",
+      "End": "8de1bb15223f4627af9b4132db9a9007",
+      "Id": "0c444319710e4f50befe975ef4c9c9df"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [
+    {
+      "Name": "PyScript",
+      "Version": "0.0.7",
+      "ReferenceType": "Package",
+      "Nodes": [
+        "38e041d4b5834bb9b450d5b75c200871"
+      ]
+    }
+  ],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.6.1.8786",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Фоновый просмотр",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Script.Execute",
+        "Id": "38e041d4b5834bb9b450d5b75c200871",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 503.11707814664828,
+        "Y": 390.23234880864845
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Log",
+        "Id": "33456303c34b47f2893ffda8e639feee",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": true,
+        "Excluded": false,
+        "X": 776.11707814664828,
+        "Y": 348.23234880864845
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "List Create",
+        "Id": "dc8bacb26c754c148289dece1d9d49c3",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 283.11707814664828,
+        "Y": 390.23234880864845
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Return",
+        "Id": "80c6df4367474546a4be46cf073a10d9",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 776.11707814664828,
+        "Y": 458.23234880864845
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Create dimension",
+        "Id": "31efec624c534315ab3265c622ceea8e",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -32.882921853351718,
+        "Y": 304.23234880864845
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Create all dimension",
+        "Id": "c822d0e90b894b6e820093e3cc2c4923",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -32.882921853351718,
+        "Y": 387.23234880864845
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Crop axles",
+        "Id": "362c53b5d87547ff88d1266a4a49471f",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -32.882921853351718,
+        "Y": 471.23234880864845
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Update bubbles",
+        "Id": "fd4f20c5b5fa427eb5dd31cb004d8640",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -32.882921853351718,
+        "Y": 554.23234880864845
+      }
+    ],
+    "Annotations": [],
+    "X": 95.2838643985142,
+    "Y": 41.436583203792,
+    "Zoom": 0.86797750764901571
+  }
+}
