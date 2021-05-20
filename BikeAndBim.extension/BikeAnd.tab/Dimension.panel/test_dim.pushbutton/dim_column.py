@@ -423,14 +423,14 @@ def main():
     columns = get_columns()
     for column in columns:
         try:  # TODO Переписать нормально. Без try или не в этом месте
-            create_dim_for_column(column, K_OFFSET, K_SPACE, K_SHIFT_SPACE)
+            create_dim_for_column(column, doc.ActiveView, K_OFFSET, K_SPACE, K_SHIFT_SPACE)
         except Exception as err:
             logger.error(err)
 
     logger.info('Create dimension for {} columns '.format(len(columns)))
 
 
-def create_dim_for_column_and_grid(column, grid, k_offset=4):
+def create_dim_for_column_and_grid(column, grid, view, k_offset=4):
     direction = grid.Curve.Direction
     edge = ColumnEdge(column)
 
@@ -439,19 +439,19 @@ def create_dim_for_column_and_grid(column, grid, k_offset=4):
 
     out_line = edge.get_out_line_by_dir_and_offset(direction, k_offset)
 
-    dim = doc.Create.NewDimension(doc.ActiveView, out_line, ref_arr)
+    dim = doc.Create.NewDimension(view, out_line, ref_arr)
 
     logger.debug('Create dimension: ' + dim.Name)
     return dim
 
 
-def create_dim_for_column(column, k_offset=4, k_space=1, k_shift_space=0.8):
+def create_dim_for_column(column, view, k_offset=4, k_space=1, k_shift_space=0.8):
     grids = AxlesColumn(column).get_axles()
 
     dims = []
     for grid in grids:
         try:
-            dim = create_dim_for_column_and_grid(column, grid, k_offset)
+            dim = create_dim_for_column_and_grid(column, grid, view, k_offset)
         except FacesNotOrto:
             logger.error('Problem with face for {} in {}-{} '.format(
                 grid.Name, grids[0].Name, grids[1].Name))
