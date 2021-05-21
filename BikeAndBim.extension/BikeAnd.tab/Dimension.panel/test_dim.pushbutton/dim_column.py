@@ -446,30 +446,33 @@ def create_dim_for_column_and_grid(column, grid, view, k_offset=4):
 
 
 def create_dim_for_column(column, view, k_offset=4, k_space=1, k_shift_space=0.8):
-    grids = AxlesColumn(column).get_axles()
+    try:
+        grids = AxlesColumn(column).get_axles()
 
-    dims = []
-    for grid in grids:
-        try:
-            dim = create_dim_for_column_and_grid(column, grid, view, k_offset)
-        except FacesNotOrto:
-            logger.error('Problem with face for {} in {}-{} '.format(
-                grid.Name, grids[0].Name, grids[1].Name))
-            continue
+        dims = []
+        for grid in grids[:1]:
+            try:
+                dim = create_dim_for_column_and_grid(column, grid, view, k_offset)
+            except FacesNotOrto:
+                logger.error('Problem with face for {} in {}-{} '.format(
+                    grid.Name, grids[0].Name, grids[1].Name))
+                continue
 
-        dims.append(dim)
+            dims.append(dim)
 
-        # TODO add 1 segment
-        if dim.Segments.Size == 2:
-            text_position = Dim2TextPosition(dim, k_space, k_shift_space)
-            text_position.update()
-        else:
-            logger.error('Dim for column at axles {}-{} have 1 segments for {}'.format(
-                grids[0].Name, grids[1].Name, grid.Name))
+            # TODO add 1 segment
+            if dim.Segments.Size == 2:
+                text_position = Dim2TextPosition(dim, k_space, k_shift_space)
+                text_position.update()
+            else:
+                logger.error('Dim for column at axles {}-{} have 1 segments for {}'.format(
+                    grids[0].Name, grids[1].Name, grid.Name))
 
-    logger.debug('#{} Column. Create {} dimension'.format(column.Id, len(dims)))
+        logger.debug('#{} Column. Create {} dimension'.format(column.Id, len(dims)))
+    except Exception:
+        raise ScriptError('Can not create dim')
 
-    return dims
+    return dims[0]
 
 
 def get_columns():
