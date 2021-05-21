@@ -1,5 +1,5 @@
 # coding=utf-8
-from dim_column import create_dim_for_column
+from dim_column import create_dim_for_column, ScriptError
 
 import unittest
 from pyrevit.unittests.runner import OutputWriter, PyRevitTestRunner, RESULT_TEST_SUITE_START
@@ -16,36 +16,80 @@ class TestDimColumn(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
+        cls.column = create_column(location=(0, 0 , 0), height=3000)
         cls.column = doc.GetElement(DB.ElementId(553068))
-        cls.axis_horizontal = doc.GetElement(DB.ElementId(518439))
-        cls.axis_vertical = doc.GetElement(DB.ElementId(519778))
+        cls.axis = create_axis(origin=(0, 0, 0), direction=(0, 1, 0))
+        cls.axis = doc.GetElement(DB.ElementId(518439))
         cls.view = doc.ActiveView
 
+    @classmethod
+    def tearDownClass(cls):
+        doc.Delete(cls.column.Id)
+        doc.Delete(cls.axis.Id)
+
     def setUp(self):
-        self.transaction = DB.Transaction(doc, self.__class__.__name__)
+        self.transaction = DB.Transaction(doc, 'Test')
         self.transaction.Start()
 
     def tearDown(self):
         self.transaction.RollBack()
 
     def test_01_create_dim(self):
-        dims = create_dim_for_column(self.column, view=self.view)
-        self.assertTrue(dims, msg='Размеры не созданы')
+        dim = create_dim_for_column(self.column, view=self.view)
+        self.assertIsInstance(dim, DB.Dimension, msg='Размер не создан')
 
-    def test_02_count_dim(self):
-        dims = create_dim_for_column(self.column, view=self.view)
-        self.assertTrue(len(dims) == 2, msg='Количество созданных размеров не равно 2')
+    def test_02_dim_on_view(self):
+        dim = create_dim_for_column(self.column, view=self.view)
+        self.assertEqual(dim.View.Id, self.view.Id, 'Размеры созданы не на заданном виде')
 
-    def test_03_dims_on_view(self):
-        dims = create_dim_for_column(self.column, view=self.view)
-        self.assertTrue(all(dim.View.Id == self.view.Id for dim in dims), msg='Размеры созданы не на заданном виде')
+    def test_03_count_segments(self):
+        dim = create_dim_for_column(self.column, view=self.view)
+        self.assertEqual(dim.Segments.Size, 2, 'Размеры состоят не из двух сегментов')
 
-    def test_04_count_segments(self):
-        dims = create_dim_for_column(self.column, view=self.view)
-        self.assertTrue(all(dim.Segments.Size == 2 for dim in dims), msg='Размеры состоят не из двух сегментов')
+    def test_04_correct_column(self):
+        dim = create_dim_for_column(self.column, view=self.view)
+        self.assertIn(self.column.Id, [ref.ElementId for ref in dim.References], 'Размер не относится к колонне')
 
-    def test_99_number_two(self):
-        self.assertTrue(True, "this is all wrong")
+    def test_05_correct_axis(self):
+        dim = create_dim_for_column(self.column, view=self.view)
+        self.assertIn(self.axis.Id, [ref.ElementId for ref in dim.References], 'Размер не относится к оси')
+
+    def test_06_check_is_shift_segments(self):
+        dim = create_dim_for_column(self.column, view=self.view)
+
+        for segment in dim.Segments:
+            if is_need_shift(value=segment.ValueString, dim_type=dim.DimensionType, scale=self.view.Scale):
+                self.assertGreater(segment.Origin.DistanceTo(segment.TextPosition), 0.5, 'Сегмент размера не смещен')
+
+    def test_07_error_with_not_column(self):
+        wall = create_wall(origin=(0, 0, 0), direction=(1, 0, 0), level=0)
+        with self.assertRaises(ScriptError):
+            create_dim_for_column(wall, view=self.view)
+
+    def test_08_error_non_valid_view(self):
+        non_valid_view = get_view_project_browser()
+        with self.assertRaises(ScriptError):
+            create_dim_for_column(self.column, view=non_valid_view)
+
+
+def create_axis(**kwargs):
+    return []
+
+
+def create_column(**kwargs):
+    return []
+
+
+def get_view_project_browser():
+    return []
+
+
+def create_wall(**kwargs):
+    return []
+
+
+def is_need_shift(*args, **kwargs):
+    return True
 
 
 def main():
